@@ -9,10 +9,16 @@
   }
   .sortBtn {
     height: 40px;
-    background-color: rgb(75, 137, 230);
+    background-color: rgb(88, 120, 168);
     outline: none;
     border: none;
     cursor: pointer;
+    color: white;
+
+    &:hover{
+      background-color: var(--secondary-color);
+      color: rgb(202, 15, 15);
+    }
   }
   .cardsWrapper {
     display: flex;
@@ -25,16 +31,21 @@
     flex-direction: column;
     gap: 1rem;
   }
-  .mainActionBtn {
-    width: 150px;
+  .actionBtn {
+    width: var(--btn-width);
     height: 40px;
     background-color: rgb(75, 137, 230);
     outline: none;
     border: none;
     cursor: pointer;
     align-self: center;
+    color: white;
     &:disabled {
       opacity: 0.7;
       cursor: not-allowed;
     }
+     &:hover{
+      background-color: var(--secondary-color);
+      color: blue;
+     }
   }

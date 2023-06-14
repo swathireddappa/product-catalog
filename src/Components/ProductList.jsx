@@ -8,6 +8,7 @@ const ProductList = () =>{
     const [ currentPage,  setCurrentPage ] = useState(1);
     const [ sortDirection , setsortDirection] = useState('asc')
     const [ sortedProducts , setSortedProducts] = useState(products);
+    const [searchQuery, setsearchQuery] = useState("");
 
     const categories = [ ...new Set(products.map((product) => product.category))];
     const limit = 30;
@@ -51,23 +52,23 @@ const ProductList = () =>{
 
      useEffect (()  => {
         fetch('https://dummyjson.com/products')
-    .then((response)=> response.json())
-    .then((data) => {
+        .then((response)=> response.json())
+        .then((data) => {
         setProducts(data.products);
         setSortedProducts(data.products);
         console.log(data.products);
-    })
-    .catch((error) => {
+        })
+        .catch((error) => {
         console.error('Error fetching products :', error);
 
-    })      
-}, []);
+        })      
+        }, []);
 
-    return(
-    <div className={styles.ListWrapper}>
-        <div className={styles.controlsWrapper}>
-        <label htmlFor='category'>Filter by category:</label>
-        <select
+          return(
+          <div className={styles.ListWrapper}>
+            <div className={styles.controlsWrapper}>
+          <label htmlFor='category'>Filter by category:</label>
+          <select
           id='category'
           className={styles.inputField}
            value={selectedCategory}
@@ -83,15 +84,38 @@ const ProductList = () =>{
         </select>
           <label> Sort by Price:</label>
           <button onClick={handleSort}
-          className={styles.sortbtn}>
+          className={styles.sortBtn}>
 
             { sortDirection === 'asc' ? 'Low to High' : 'High to Low'}
 
           </button>
 
+          <input type="text"
+          placeholder="Search...." 
+          className={styles.inputField}
+          value={searchQuery}
+          onChange={(e)=>setsearchQuery(e.target.value)}/>
       </div>
 
           <div className={styles.cardsWrapper }>
+          {searchQuery !== '' ?
+          sortedProducts
+        .filter((product)=>
+        product.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+          .map((product)=> (
+            <ProductCard key ={product.id} product={product} />
+          ))
+          :sortedProducts
+          .filter((product) =>
+          selectedCategory == '' || product.category === selectedCategory)
+          .map((product)=> (
+            <ProductCard key = {product.id} product={product} />
+          )
+          )
+      }
+
+
         { sortedProducts
             .filter((product) => selectedCategory ==  '' || product.category === selectedCategory )
             .map((product) => 

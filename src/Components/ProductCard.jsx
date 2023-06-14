@@ -19,7 +19,7 @@ import styles from "./ProductCard.module.css";
         <p> Price :EUR { product.price }</p>
         </div>
 
-        <button>Details...</button>
+        <button className={styles.actionBtn}>Details...</button>
 
         </div>
     )

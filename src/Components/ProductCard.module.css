@@ -26,13 +26,13 @@
   .actionBtn {
     position: absolute;
     bottom: 0;
-    width: 150px;
-    height: 40px;
+    width: var(--btn-width);
+    height: var(--btn-height);
     margin: 0 auto;
     margin-bottom: 1rem;
     display: block;
     align-self: center;
-    background-color: rgb(125, 242, 242);
+    background-color: var(--secondary-color);
     outline: none;
     border: none;
     cursor: pointer;
